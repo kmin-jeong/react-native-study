@@ -15,7 +15,10 @@ export default function Setting() {
           {theme.map(color => (
             <TouchableOpacity
               key={color}
-              style={[styles.colorButton, COLORS[color] as any]}
+              style={[
+                styles.colorButton,
+                {backgroundColor: COLORS[color]} as any,
+              ]}
               onPress={() => setThemeColor(color)}
             />
           ))}
@@ -41,8 +44,8 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   colorButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 50,
+    height: 50,
+    borderRadius: 40,
   },
 });
