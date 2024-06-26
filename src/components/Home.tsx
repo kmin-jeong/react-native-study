@@ -11,13 +11,13 @@ export default function Home() {
     {text: '아침먹기', key: '3'},
   ]);
 
-  const pressHandler = (key: any) => {
+  const pressHandler = (key: string | number) => {
     setTodos(prevTodos => {
       return prevTodos.filter(todo => todo.key != key);
     });
   };
 
-  const submitHandler = (text: any) => {
+  const submitHandler = (text: string) => {
     setTodos(prevTodos => {
       return [{text: text, key: Math.random().toString()}, ...prevTodos];
     });

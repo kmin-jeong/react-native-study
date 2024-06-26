@@ -1,12 +1,12 @@
 import {SafeAreaView, StatusBar} from 'react-native';
-
+import COLORS, {Theme} from '../style/style';
 import React, {useState} from 'react';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
 
 export default function Add({submitHandler}: any) {
   const [text, setText] = useState('');
 
-  const changeHandler = (val: any) => {
+  const changeHandler = (val: string) => {
     setText(val);
   };
 
@@ -20,7 +20,7 @@ export default function Add({submitHandler}: any) {
       <Button
         onPress={() => submitHandler(text)}
         title="제출"
-        color="FF8F50"></Button>
+        color={COLORS.orange}></Button>
     </View>
   );
 }
