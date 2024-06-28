@@ -5,38 +5,57 @@ import Adds from '../asset/Adds';
 import Add from './Add';
 import Homes from '../asset/Homes';
 import Settings from '../asset/Settings';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
+import {RouteProp} from '@react-navigation/native';
+import {useThema} from '../store/ThemeStore';
+import {useNavigation} from '@react-navigation/native';
+import COLORS from '../style/style';
 
-const Tab = createBottomTabNavigator();
+type TodoList = {
+  Home: {todo: {id: string; text: string}} | undefined;
+  Add: undefined;
+  Setting: undefined;
+};
 
-export default function Navigator() {
+const Tab = createBottomTabNavigator<TodoList>();
+
+type HomeScreen = RouteProp<TodoList, 'Home'>;
+
+interface HomeProps {
+  route: HomeScreen;
+}
+
+export default function Navigator({navigation}: any) {
+  const {themeColor} = useThema();
+
   return (
     <Tab.Navigator initialRouteName="Home">
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          title: 'Home',
-          tabBarIcon: ({color, focused}) => (
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <TouchableOpacity>
-                <Homes />
-              </TouchableOpacity>
-            </View>
+          headerStyle: [styles.header],
+          headerTitleStyle: {color: themeColor},
+          title: 'Today',
+          tabBarIcon: () => (
+            <TouchableOpacity style={styles.button}>
+              <Homes />
+              <Text>Home</Text>
+            </TouchableOpacity>
           ),
         }}
       />
       <Tab.Screen
-        name="할일들"
+        name="Add"
         component={Add}
         options={{
           tabBarIcon: () => (
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <TouchableOpacity style={{top: -10}}>
-                <Adds />
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Add')}
+              style={styles.button}>
+              <Adds />
+            </TouchableOpacity>
           ),
         }}
       />
@@ -44,14 +63,39 @@ export default function Navigator() {
         name="Setting"
         component={Setting}
         options={{
-          title: '세팅',
-          tabBarIcon: ({color, focused}) => (
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          headerStyle: [styles.header],
+          headerTitleStyle: {color: themeColor},
+          tabBarIcon: () => (
+            <TouchableOpacity style={styles.button}>
               <Settings />
-            </View>
+              <Text>Setting</Text>
+            </TouchableOpacity>
           ),
         }}
       />
     </Tab.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  header: {
+    backgroundColor: COLORS.gray,
+    elevation: 0,
+    borderBottomWidth: 0,
+    shadowOpacity: 0,
+  },
+  font: {
+    fontSize: 12,
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tabBar: {
+    height: 60,
+  },
+});
