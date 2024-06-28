@@ -7,6 +7,7 @@ import {RouteProp} from '@react-navigation/native';
 import COLORS, {Theme} from '../style/style';
 import {useThema} from '../store/ThemeStore';
 import Checks from '../asset/Check';
+import Checked from '../asset/Checked';
 import Trash from '../asset/Trash';
 
 type TodoList = {
@@ -96,7 +97,21 @@ export default function Home({route}: HomeProps) {
           <TouchableOpacity
             onPress={() => handleDelete(item.id)}
             style={{marginRight: 20}}>
-            <Trash />
+            <View
+              style={[
+                styles.trash,
+                item.completed
+                  ? {
+                      backgroundColor: COLORS.white,
+                      borderColor: themeColor,
+                    }
+                  : {
+                      backgroundColor: COLORS.white,
+                      borderColor: COLORS.orange,
+                    },
+              ]}>
+              <Trash />
+            </View>
           </TouchableOpacity>
         </TouchableOpacity>
       )}
@@ -142,6 +157,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.white,
+  },
+
+  trash: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   todoText: {
