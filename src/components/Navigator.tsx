@@ -30,7 +30,15 @@ export default function Navigator({navigation}: any) {
   const {themeColor} = useThema();
 
   return (
-    <Tab.Navigator initialRouteName="Home">
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={() => ({
+        tabBarHideOnKeyboard: true,
+        tabBarShowLabel: false,
+        tabBarStyle: {backgroundColor: COLORS.white},
+        tabBarActiveTintColor: themeColor,
+        tabBarInactiveTintColor: COLORS.darkGray,
+      })}>
       <Tab.Screen
         name="Home"
         component={Home}
