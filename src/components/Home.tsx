@@ -28,7 +28,11 @@ interface Todoitems {
 }
 
 export default function Home({route}: HomeProps) {
-  const [todos, setTodos] = useState<Todoitems[]>([]);
+  const [todos, setTodos] = useState<Todoitems[]>([
+    {text: '아침먹기', id: '1'},
+    {text: '수영하기', id: '2'},
+    {text: '잠자기', id: '3'},
+  ]);
   const {themeColor} = useThema();
 
   //  some or every??? -> some
